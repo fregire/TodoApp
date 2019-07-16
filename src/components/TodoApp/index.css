@@ -1,0 +1,30 @@
+.todo-list {
+	margin: 0;
+	padding: 0;
+}
+
+.todo-form {
+	margin-bottom: 30px;
+}
+
+.todo-form .form-control {
+	flex: 1;
+}
+
+.todo-date {
+	font-size: 14px;
+}
+
+.todo-item__index {
+	font-size: 25px;
+	margin-right: 5px;
+}
+
+.card--completed .card-body {
+	text-decoration: line-through;
+}
+
+
+.card-body {
+	font-size: 19px;
+}
