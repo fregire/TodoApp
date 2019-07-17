@@ -5,26 +5,21 @@ import './index.css';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
 
+import { setItems, getItems } from './util';
+
+
 
 class TodoApp extends React.Component {
 	constructor(props){
 		super(props);
 
-		let items = this.getItems() || [];
+		let items = getItems() || [];
 		let currentIndex = items.length;
 
 		this.state = {
 			items: items,
 			currentIndex: currentIndex
 		}
-	}
-
-	getItems = () => {
-		return JSON.parse(localStorage.getItem("items"));
-	}
-
-	setItems = (items) => {
-		localStorage.setItem("items", JSON.stringify(items));
 	}
 
 	handleAddClick = (e) => {
@@ -50,7 +45,7 @@ class TodoApp extends React.Component {
 			currentIndex: this.state.currentIndex + 1
 		});
 
-		this.setItems(items);
+		setItems(items);
 
 		input.value = "";
 	}
@@ -69,7 +64,7 @@ class TodoApp extends React.Component {
 			currentIndex: this.state.currentIndex - 1
 		});
 
-		this.setItems(items);
+		setItems(items);
 	}
 
 	handleClearCompletedItemsClick = (e) => {
@@ -87,7 +82,7 @@ class TodoApp extends React.Component {
 		});
 
 
-		this.setItems(items);
+		setItems(items);
 	}
 
 	render(){

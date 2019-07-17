@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { setItems } from './util';
+
 
 class TodoItem extends React.Component{
 	constructor(props){
@@ -20,7 +22,7 @@ class TodoItem extends React.Component{
 			completed: !this.state.completed
 		});
 		
-		localStorage.setItem("items", JSON.stringify(items));
+		setItems(items);
 	}
 
 	render(){
