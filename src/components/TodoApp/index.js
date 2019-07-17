@@ -35,10 +35,13 @@ class TodoApp extends React.Component {
 		let items = this.state.items;
 		let date = new Date();
 
+		if(!inputValue) return;	
+
+		//Добавляем задачу со всеми свойствами
 		items[this.state.currentIndex] = {
 			content: inputValue,
 			date: date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear(),
-			id: Math.random() * (100 - 1) + 1, // Id взял просто так. Может повториться,
+			id: parseInt(Math.random() * (100 - 1) + 1), // Id взял просто так. Может повториться,
 			completed: false
 		};
 
@@ -58,6 +61,7 @@ class TodoApp extends React.Component {
 		let items = this.state.items;
 		let index = +e.target.getAttribute("data-index");
 
+		//Удаляем задачу из массива
 		items.splice(index, 1);
 
 		this.setState({
@@ -71,6 +75,8 @@ class TodoApp extends React.Component {
 	handleClearCompletedItemsClick = (e) => {
 		e.preventDefault();
 
+		//Оставляем только те задачи, которые не выполнены
+		//остальное отбрасываем
 		let items = this.state.items.filter(function(item){
 			return !item.completed;
 		});
