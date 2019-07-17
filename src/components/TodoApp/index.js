@@ -10,7 +10,7 @@ class TodoApp extends React.Component {
 	constructor(props){
 		super(props);
 
-		let items = JSON.parse(localStorage.getItem("items")) || [];
+		let items = this.getItems() || [];
 		let currentIndex = items.length;
 
 		this.state = {
@@ -19,8 +19,17 @@ class TodoApp extends React.Component {
 		}
 	}
 
+	getItems = () => {
+		return JSON.parse(localStorage.getItem("items"));
+	}
+
+	setItems = (items) => {
+		localStorage.setItem("items", JSON.stringify(items));
+	}
+
 	handleAddClick = (e) => {
 		e.preventDefault();
+
 		const input = document.querySelector(".form-control");
 		const inputValue = input.value;
 		let items = this.state.items;
@@ -38,11 +47,14 @@ class TodoApp extends React.Component {
 			currentIndex: this.state.currentIndex + 1
 		});
 
-		localStorage.setItem("items", JSON.stringify(items));
+		this.setItems(items);
+
 		input.value = "";
 	}
 
 	handleDeleteClick = (e) => {
+		e.preventDefault();
+
 		let items = this.state.items;
 		let index = +e.target.getAttribute("data-index");
 
@@ -53,7 +65,7 @@ class TodoApp extends React.Component {
 			currentIndex: this.state.currentIndex - 1
 		});
 
-		localStorage.setItem("items", JSON.stringify(items));
+		this.setItems(items);
 	}
 
 	handleClearCompletedItemsClick = (e) => {
@@ -69,7 +81,7 @@ class TodoApp extends React.Component {
 		});
 
 
-		localStorage.setItem("items", JSON.stringify(items));
+		this.setItems(items);
 	}
 
 	render(){
@@ -79,8 +91,8 @@ class TodoApp extends React.Component {
 					<h1 className="container" >TodoApp</h1>
 				</header>
 				<main className="body container">
-					<TodoForm handleAddClick={this.handleAddClick} onClearCompletedItems={this.handleClearCompletedItemsClick} />
-					<TodoList handleDeleteClick={this.handleDeleteClick} items={this.state.items} />
+					<TodoForm onAddClick={this.handleAddClick} onClearCompletedItems={this.handleClearCompletedItemsClick} />
+					<TodoList onDeleteClick={this.handleDeleteClick} items={this.state.items} />
 				</main>
 			</div>
 		);

@@ -5,13 +5,14 @@ class TodoItem extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			completed: this.props.item.completed
+			completed: this.props.items[this.props.index].completed
 		}
 	}
 
 	handleCompletedClick = (e) => {
 		let items = this.props.items;
 		items[this.props.index].completed = !this.state.completed;
+
 		this.setState({
 			completed: !this.state.completed
 		});
@@ -22,6 +23,7 @@ class TodoItem extends React.Component{
 	render(){
 		const completedBtnClasses = this.state.completed ? 'btn btn-success disabled mr-2' : 'btn btn-success mr-sm-2';
 		const completedCardClasses = this.state.completed ? 'todo-item card card--completed' : 'todo-item card';
+		const item = this.props.items[this.props.index];
 
 		return (
 			<li className={completedCardClasses} style={{"marginBottom" : "15px"}}>
@@ -37,9 +39,9 @@ class TodoItem extends React.Component{
 						</button>
 						<button className="btn btn-danger" onClick={this.props.onDeleteClick} data-index={this.props.index}>Удалить</button>
 					</div>
-					<span className="text-muted todo-date">{this.props.item.date}</span>
+					<span className="text-muted todo-date">{item.date}</span>
 				</h2>
-				<p className="card-body">{this.props.item.content}</p>
+				<p className="card-body">{item.content}</p>
 			</li>
 		);		
 	}
