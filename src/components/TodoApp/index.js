@@ -5,7 +5,8 @@ import './index.css';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
 
-import { setItems, getItems } from './util';
+//Вспомогательные функции
+import { saveUserTasks, getUserTasks } from './util';
 
 
 
@@ -13,7 +14,7 @@ class TodoApp extends React.Component {
 	constructor(props){
 		super(props);
 
-		let items = getItems() || [];
+		let items = getUserTasks() || [];
 		let currentIndex = items.length;
 
 		this.state = {
@@ -45,7 +46,7 @@ class TodoApp extends React.Component {
 			currentIndex: this.state.currentIndex + 1
 		});
 
-		setItems(items);
+		saveUserTasks(items);
 
 		input.value = "";
 	}
@@ -64,10 +65,10 @@ class TodoApp extends React.Component {
 			currentIndex: this.state.currentIndex - 1
 		});
 
-		setItems(items);
+		saveUserTasks(items);
 	}
 
-	handleClearCompletedItemsClick = (e) => {
+	handleClearCompletedTasksClick = (e) => {
 		e.preventDefault();
 
 		//Оставляем только те задачи, которые не выполнены
@@ -82,7 +83,7 @@ class TodoApp extends React.Component {
 		});
 
 
-		setItems(items);
+		saveUserTasks(items);
 	}
 
 	render(){
@@ -92,7 +93,7 @@ class TodoApp extends React.Component {
 					<h1 className="container" >TodoApp</h1>
 				</header>
 				<main className="body container">
-					<TodoForm onAddClick={this.handleAddClick} onClearCompletedItems={this.handleClearCompletedItemsClick} />
+					<TodoForm onAddClick={this.handleAddClick} onClearCompletedItems={this.handleClearCompletedTasksClick} />
 					<TodoList onDeleteClick={this.handleDeleteClick} items={this.state.items} />
 				</main>
 			</div>

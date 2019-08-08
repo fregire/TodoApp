@@ -1,9 +1,12 @@
-const getItems = () => {
+// Возвращает массив задач
+const getUserTasks = () => {
 	return JSON.parse(localStorage.getItem("items"));
 }
 
-const setItems = (items) => {
+// items - array 
+// Элементы, которые будут заноситься в localStorage
+const saveUserTasks = (items) => {
 	localStorage.setItem("items", JSON.stringify(items));
 }
 
-export { getItems, setItems };
+export { getUserTasks, saveUserTasks };
